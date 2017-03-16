@@ -4,6 +4,8 @@
     Author     : IT10
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@page import="beans.Publisher"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="beans.ItemList"%>
@@ -49,6 +51,27 @@
                         <li><a href="#"><%=author.getName()%></a></li>
                         <%}%>
                     </ul>
+                    <hr />
+                    
+                    <h3>Список авторов</h3>
+                    <ul>
+                        <jsp:useBean id="authorList" class="beans.AuthorList" scope="application">
+                            <c:forEach var="author" items="${authorList.getAuthorList()}">
+                                <li><a href="#">${author.name}</a></li>
+                            </c:forEach>
+                        </jsp:useBean>
+                    </ul>
+                    <h3>Список книг</h3>
+                    <ul>
+                        <%  ArrayList<Book> bList = new ItemList().getItems("book", "name", Book.class);
+                            request.setAttribute("bookList", bList);
+                        %>
+                        <c:forEach var="book" items="${bookList}">
+                            <li><a href="#">${book.name}</a></li>
+                        </c:forEach>
+                    </ul>
+                    
+                    <hr />
                     <h3>Список книг</h3>
                     <ul>
                         <% ArrayList<Book> bookList = new ItemList().getItems("book", "name", Book.class); %>

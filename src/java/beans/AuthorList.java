@@ -27,7 +27,7 @@ public class AuthorList {
         
         try (
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM `author` ORDER BY `fio` DESC")) {
+                ResultSet rs = stmt.executeQuery("SELECT * FROM `author` ORDER BY `fio`")) {
             
             while (rs.next()) {
                 String authorName = rs.getString("fio");
