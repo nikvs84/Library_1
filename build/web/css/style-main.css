@@ -1,0 +1,35 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 13, 2017, 5:21:45 PM
+    Author     : IT10
+*/
+
+body {
+    background-color: #999;
+}
+div.content {
+    background-color: #fff;
+    margin: 50px;
+    /*border: 1px solid #00f;*/
+}
+
+div.header {
+    
+}
+
+div.clear {
+    clear: both;
+}
+
+div.left {
+    float: left;
+    padding: 0 15px 0 5px;
+}
+
+div.right {
+    /*float: right;*/
+}
