@@ -14,23 +14,23 @@ import java.util.ArrayList;
 public class BookList {
     private ArrayList<Book> bookList;
     
-    private ArrayList<Book> getBooks() {
-        ItemList<String> itemList = new ItemList<>();
-        ArrayList<String> items = itemList.getItems("book", "name", null);
-        
-        bookList = new ArrayList<>();
-        
-        for (String item : items) {
-            Book book = new Book(item);
-            bookList.add(book);
-        }
-
-        return bookList;
-    }
-    
-    public ArrayList<Book> getBookList() {
-        if (bookList == null)
-            bookList = getBooks();
-        return bookList;
-    }
+//    private ArrayList<Book> getBooks() {
+//        ItemList<String> itemList = new ItemList<>();
+//        ArrayList<String> items = itemList.getItems("book", "name", Book.class);
+//        
+//        bookList = new ArrayList<>();
+//        
+//        for (String item : items) {
+//            Book book = new Book(item);
+//            bookList.add(book);
+//        }
+//
+//        return bookList;
+//    }
+//    
+//    public ArrayList<Book> getBookList() {
+//        if (bookList == null)
+//            bookList = getBooks();
+//        return bookList;
+//    }
 }

@@ -4,6 +4,8 @@
     Author     : IT10
 --%>
 
+<%@page import="beans.Publisher"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="beans.ItemList"%>
 <%@page import="beans.Genre"%>
 <%@page import="beans.BookList"%>
@@ -49,14 +51,23 @@
                     </ul>
                     <h3>Список книг</h3>
                     <ul>
-                        <% for (Book book: new BookList().getBookList()) {%>
+                        <% ArrayList<Book> bookList = new ItemList().getItems("book", "name", Book.class); %>
+                        <% for (Book book: bookList) {%>
                         <li><a href="#"><%=book.getName()%></a></li>
                         <%}%>
                     </ul>
                     <h3>Список жанров</h3>
                     <ul>
-                        <% for (Genre genre: new ItemList<Genre>().getItems("genre", "name")) {%>
+                        <% ArrayList<Genre> genreList = new ItemList().getItems("genre", "name", Genre.class); %>
+                        <% for (Genre genre: genreList) {%>
                         <li><a href="#"><%=genre.getName()%></a></li>
+                        <%}%>
+                    </ul>
+                    <h3>Список издательств</h3>
+                    <ul>
+                        <% ArrayList<Publisher> publisherList = new ItemList().getItems("publisher", "name", Publisher.class); %>
+                        <% for (Publisher publisher: publisherList) {%>
+                        <li><a href="#"><%=publisher.getName()%></a></li>
                         <%}%>
                     </ul>
                 </div>
