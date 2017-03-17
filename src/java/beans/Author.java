@@ -5,11 +5,16 @@
  */
 package beans;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author IT10
  */
 public class Author extends Item {
+    private Date birthday;
     
     public Author() {
         super();
@@ -17,6 +22,19 @@ public class Author extends Item {
     
     public Author(String name) {
         super(name);
+    }
+    
+    public Date getBirthday() {
+        return birthday;
+    }
+    
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+    
+    public String getFormattedDate() {
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.YYYY");
+        return dateFormat.format(birthday);
     }
 
 }

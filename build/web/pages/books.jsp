@@ -1,12 +1,10 @@
 <%-- 
-    Document   : newjsp
-    Created on : Mar 9, 2017, 5:52:21 PM
+    Document   : books
+    Created on : Mar 17, 2017, 5:44:26 PM
     Author     : IT10
 --%>
 
-
-
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
             <div class="form-auth">
                 <p><%="Привет, " + request.getParameter("username")%></p>
             </div>
@@ -34,8 +32,3 @@
             </div>
             <div class="footer"></div>
         </div>        
-        <%
-//            TestConnection tc = new TestConnection();
-//            tc.check();
-        %>
-

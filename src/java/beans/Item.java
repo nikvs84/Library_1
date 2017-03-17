@@ -10,6 +10,7 @@ package beans;
  * @author IT10
  */
 public class Item {
+    protected int id;
     protected String name;
     
     public Item() {
@@ -18,6 +19,14 @@ public class Item {
     
     public Item(String name) {
         this.name = name;
+    }
+    
+    public int getId() {
+        return id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
     }
     
     public String getName() {

@@ -1,0 +1,50 @@
+<%-- any content can be specified here e.g.: --%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@page import="beans.Publisher"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="beans.ItemList"%>
+<%@page import="beans.Genre"%>
+<%@page import="beans.BookList"%>
+<%@page import="beans.Book"%>
+<%@page import="beans.AuthorList"%>
+<%@page import="beans.Author"%>
+<%@page import="testjdbc.TestConnection"%>
+<%@page pageEncoding="UTF-8" %>
+
+
+                <div class="left">
+                    <hr />
+                    
+                    <h3>Список авторов</h3>
+                    <ul>
+                        <jsp:useBean id="authorList" class="beans.AuthorList" scope="application" />
+                            <c:forEach var="author" items="${authorList.getAuthorList()}">
+                                <li><a href="#">${author.name} (${author.formattedDate})</a></li>
+                            </c:forEach>
+                    </ul>
+                    
+                    <hr />
+                    <h3>Список книг</h3>
+                    <ul>
+                         <jsp:useBean id="bookList" class="beans.BookList" scope="application" />
+                            <c:forEach var="book" items="${bookList.bookList}">
+                                <li><a href="#">${book.name}</a></li>
+                            </c:forEach>                     
+                    </ul>
+                    <h3>Список жанров</h3>
+                    <ul>
+                         <jsp:useBean id="genreList" class="beans.GenreList" scope="application" />
+                         <c:forEach var="genre" items="${genreList.genreList}">
+                                <li><a href="books.jsp?genre_id=${genre.id}">${genre.name}</a></li>
+                            </c:forEach>                     
+                    </ul>
+                    <h3>Список издателей</h3>
+                    <ul>
+                        <jsp:useBean id="publisherList" class="beans.PublisherList" scope="application" />
+                        <c:forEach var="publisher" items="${publisherList.publisherList}">
+                            <li><a href="#">${publisher.name}</a></li>
+                        </c:forEach>
+                    </ul>
+                </div>
