@@ -10,7 +10,7 @@ package beans;
  * @author IT10
  */
 public class Item {
-    protected int id;
+    protected long id;
     protected String name;
     
     public Item() {
@@ -21,11 +21,11 @@ public class Item {
         this.name = name;
     }
     
-    public int getId() {
+    public long getId() {
         return id;
     }
     
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     

@@ -14,9 +14,10 @@ body {
 
 div.content {  
     background-color: #fff;
-    margin: 50px;
+    margin: 0 auto;
     padding: 10px;
     text-align: center;
+    width: 50%;
 }
 
 .content img {

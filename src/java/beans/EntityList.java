@@ -25,8 +25,12 @@ public abstract class EntityList<T> {
     ArrayList<T> resultList;
     
     public ArrayList<T> getList(String table, String criteria, String order, String... fields) {
-        resultList = new ArrayList<>();
         String query = getQuery(table, criteria, order, fields);
+        return getList(query);
+    }
+    
+    public ArrayList<T> getList(String query) {
+        resultList = new ArrayList<>();
         conn = Database.getConnection();
         
         try (
@@ -40,7 +44,7 @@ public abstract class EntityList<T> {
         } catch (SQLException ex) {
             Logger.getLogger(EntityList.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return resultList;
+        return resultList;        
     }
     
     public abstract T getNewInstance(ResultSet resultSet);

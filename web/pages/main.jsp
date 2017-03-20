@@ -25,11 +25,7 @@
                 
                 <%@include file="../WEB-INF/jspf/left-menu.jspf" %>
                 
-                <div class="right">
-                    <div class="book-info">
-                        <h2>Название книги</h2>
-                    </div>
-                </div>
+                <%@include file="../WEB-INF/jspf/right-block.jspf" %>
                 <div class="clear"></div>
             </div>
             <div class="footer"></div>
