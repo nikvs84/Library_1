@@ -6,6 +6,7 @@
 package beans;
 
 import db.Database;
+import enums.SearchType;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ public class BookList extends EntityList<Book>{
     private ArrayList<Book> bookList;
     
     public ArrayList<Book> getBookList() {
-        String query = "SELECT b.id, b.name, b.isbn, b.page_count, b.publish_year, \n" +
+        String query = "SELECT b.id, b.name, b.content, b.isbn, b.page_count, b.publish_year, b.image, \n" +
         "p.name AS publisher, a.fio AS author, g.name AS genre\n" +
         "FROM \n" +
         "`book` AS b INNER JOIN `author` AS a ON b.author_id=a.id\n" +
@@ -36,7 +37,7 @@ public class BookList extends EntityList<Book>{
     }
     
     public ArrayList<Book> getBooksByGenre(long id) {
-        String query = "SELECT b.id, b.name, b.isbn, b.page_count, b.publish_year, \n" +
+        String query = "SELECT b.id, b.name, b.content, b.isbn, b.page_count, b.publish_year, b.image, \n" +
         "p.name AS publisher, a.fio AS author, g.name AS genre\n" +
         "FROM \n" +
         "`book` AS b INNER JOIN `author` AS a ON b.author_id=a.id\n" +
@@ -46,7 +47,45 @@ public class BookList extends EntityList<Book>{
         "b.genre_id=%d\n" +
         "ORDER BY b.name\n" +
         "LIMIT 0,5;";
+        
         return getList(String.format(query, id));
+    }
+    
+    public ArrayList<Book> getBooksByLetter(String letter) {
+        String query = "SELECT b.id, b.name, b.content, b.isbn, b.page_count, b.publish_year, b.image, \n" +
+        "p.name AS publisher, a.fio AS author, g.name AS genre\n" +
+        "FROM \n" +
+        "`book` AS b INNER JOIN `author` AS a ON b.author_id=a.id\n" +
+        "INNER JOIN `genre` AS g on b.genre_id=g.id\n" +
+        "INNER JOIN `publisher` AS p ON b.publisher_id=p.id\n" +
+        "WHERE\n" +
+        "UPPER(SUBSTR(b.name, 1, 1)) = '%s' \n" +
+        "ORDER BY b.name\n" +
+        "LIMIT 0,5;";
+        
+        query = String.format(query, letter.toUpperCase());
+        
+        return getList(query);
+    }
+    
+    public ArrayList<Book> getBooksBySearch(String search, SearchType searchType) {
+        StringBuilder query = new StringBuilder("SELECT b.id, b.name, b.content, b.isbn, b.page_count, b.publish_year, b.image, \n" +
+        "p.name AS publisher, a.fio AS author, g.name AS genre\n" +
+        "FROM \n" +
+        "`book` AS b INNER JOIN `author` AS a ON b.author_id=a.id\n" +
+        "INNER JOIN `genre` AS g on b.genre_id=g.id\n" +
+        "INNER JOIN `publisher` AS p ON b.publisher_id=p.id\n" +
+        "WHERE\n");
+        
+        if (searchType == SearchType.AUTHOR) {
+            query.append("LOWER(a.fio) like '%" + search.toLowerCase() + "%' ");
+        } else if (searchType == SearchType.TITLE) {
+            query.append("b.name like '%" + search.toLowerCase() + "%' ");
+        }
+        
+        query.append("ORDER BY b.name LIMIT 0,5;");
+        
+        return getList(query.toString());
     }
 
     @Override
@@ -61,9 +100,17 @@ public class BookList extends EntityList<Book>{
             String author = resultSet.getString("author");
             Date publishYear = resultSet.getDate("publish_year");
             String publisher = resultSet.getString("publisher");
+            byte[] image = resultSet.getBytes("image");
             
             book.setId(id);
             book.setName(name);
+            book.setPageCount(pageCount);
+            book.setIsbn(isbn);
+            book.setGenre(genre);
+            book.setAuthor(author);
+            book.setPublishYear(publishYear);
+            book.setPublisher(publisher);
+            book.setImage(image);
             
         } catch (SQLException e) {
             e.printStackTrace();

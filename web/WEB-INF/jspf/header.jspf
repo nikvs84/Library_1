@@ -13,3 +13,45 @@
             <div class="header">
                 <p>Логотип</p>
             </div>
+            <div class="form-auth">
+                <%  
+                    
+                    HttpSession sesession = request.getSession(false);
+                    if (sesession.getAttribute("userName") == null) {
+                       String userName = request.getParameter("username");
+                       sesession.setAttribute("userName", userName);
+                    }
+                    
+                %>
+                <%
+                    String search = request.getParameter("search_string");
+                    if (search == null)
+                        search = "";
+                    String sOption = request.getParameter("search_option");
+                    if (sOption == null)
+                        sOption = "title";
+                        
+                %>
+                <p><%="Привет, " + session.getAttribute("userName")%></p>
+            </div>
+            <div class="search">
+                <form action="books.jsp" method="GET">
+                    <img alt="Search" title="Поиск" src="../images/Search.png" width="75px" />
+                    <input type="text" name="search_string" value="<%=search%>" size="100" />
+                    <input type="submit" value="Искать" />
+                    <select name="search_option">
+                        <option value="title" <%if (sOption.equals("title")) {%>selected="selected"<% } %>>Название</option>
+                        <option value="author" <%if (sOption.equals("author")) {%>selected="selected"<% } %>>Автор</option>
+                    </select>
+                    <div class="search-letters">
+                        <ul class="letters">
+                            <%
+                                for (char i = 'А'; i <= 'Я'; i++) {
+                            %>
+                                    <li><a href="books.jsp?letter=<%=i%>"><%=i%></a></li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            <div class="center">

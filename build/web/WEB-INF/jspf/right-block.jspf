@@ -1,14 +1,30 @@
 <%-- any content can be specified here e.g.: --%>
+<%@page import="enums.SearchType"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="beans.Book"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page pageEncoding="UTF-8" %>
-
+<%--<jsp:useBean id="bookList" class="beans.BookList" scope="page" />--%>
 <%
 //    request.setCharacterEncoding("UTF-8");
-    long genreId = 0L;
-    try {
-            genreId = Long.valueOf(request.getParameter("genre_id"));
+  
+    ArrayList<Book> currentBookList = new ArrayList<Book>();
+    try {   
+            if (request.getParameter("genre_id") != null) {
+                long genreId = Long.valueOf(request.getParameter("genre_id"));
+                currentBookList = bookList.getBooksByGenre(genreId);
+            } else if (request.getParameter("letter") != null) {
+                String letter = request.getParameter("letter");
+                currentBookList = bookList.getBooksByLetter(letter);
+            } else if (request.getParameter("search_string") != null) {
+                String searchString = request.getParameter("search_string");
+                String searchOption = request.getParameter("search_option");
+                SearchType type = SearchType.valueOf(searchOption.toUpperCase());
+                currentBookList = bookList.getBooksBySearch(searchString, type);
+            }
+            session.setAttribute("currentBookList", currentBookList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -16,25 +32,26 @@
                 <div class="right">
                     <div class="book-info">
                         <h2>Список книг по жанру</h2>
-                        <ul>
-                            <jsp:useBean id="booksByGenre" class="beans.BookList" scope="page" />
+                       
                             
-                            <% for (Book book : booksByGenre.getBooksByGenre(genreId)) { %>
-                                <li>
+                            
+                            <%  int index = 0;
+                                
+                                for (Book book : currentBookList) { %>
+                                
                                     <div class="book-preview">
-                                        <b><%= book.getName()%></b> &nbsp; <%= book.getId()%><br />
-                                        <img alt="book-logo" title="<%=book.getName()%>" src="" />
+                                        <b><%= book.getName()%></b><br />
+                                        <img alt="book-logo" title="<%=book.getName()%>" src="<%=request.getContextPath()%>/ShowImage?index=<%=index%>" />
                                         <br />
                                         <b>ISBN</b> &nbsp; <%= book.getIsbn()%><br />
                                         <b>Издательство</b> &nbsp; <%= book.getPublisher()%><br />
                                         <b>Количество страниц</b> &nbsp; <%= book.getPageCount()%><br />
                                         <b>Год издания</b> &nbsp; <%= book.getFormattedDate()%><br />
-                                        
-                                        
+                                        <b>Автор</b> &nbsp; <%= book.getAuthor()%><br />
                                         <a href="#">Читать</a>
                                     </div>
-                                </li>
-                            <% } %>
-                        </ul>
+                                
+                            <% index++; } %>
+                        
                     </div>
                 </div>

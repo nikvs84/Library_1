@@ -20,6 +20,7 @@ public class Book extends Item {
     String author;
     Date publishYear;
     String publisher;
+    byte[] image;
     
     public Book() {
         super();
@@ -28,6 +29,20 @@ public class Book extends Item {
     public Book(String name) {
         super(name);
     }
+
+    public Book(String name, int id, int pageCount, String isbn, String genre, String author, Date publishYear, String publisher) {
+        super();
+        this.name = name;
+        this.id = id;
+        this.pageCount = pageCount;
+        this.isbn = isbn;
+        this.genre = genre;
+        this.author = author;
+        this.publishYear = publishYear;
+        this.publisher = publisher;
+    }
+    
+    
 
     public int getPageCount() {
         return pageCount;
@@ -80,6 +95,14 @@ public class Book extends Item {
     public String getFormattedDate() {
     DateFormat dateFormat = new SimpleDateFormat("dd.MM.YYYY");
     return dateFormat.format(publishYear);
-}
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
 }
