@@ -11,7 +11,9 @@
         <% request.setCharacterEncoding("UTF-8"); %>
         <div class="content">
             <div class="header">
-                <p>Логотип</p>
+                <div class="header-logo">
+                    <img src="../images/header-logo.jpg" width="100%" alt="header-logo"/>
+                </div>
             </div>
             <div class="form-auth">
                 <%  
@@ -22,6 +24,15 @@
                        sesession.setAttribute("userName", userName);
                     }
                     
+                    if (request.getParameter("letter") != null) {
+                        sesession.setAttribute("search_letter", request.getParameter("letter"));
+                        sesession.setAttribute("selectedGenreId", -1);
+                    } else {
+                        sesession.setAttribute("search_letter", "*");
+                    }
+                    
+                    if (request.getParameter("search_string") != null)
+                        sesession.setAttribute("selectedGenreId", -1);
                 %>
                 <%
                     String search = request.getParameter("search_string");
@@ -32,6 +43,7 @@
                         sOption = "title";
                         
                 %>
+                <div class="exit"><a href="<%=request.getContextPath()%>"><h3>Выход</h3></a></div>
                 <p><%="Привет, " + session.getAttribute("userName")%></p>
             </div>
             <div class="search">
@@ -46,9 +58,14 @@
                     <div class="search-letters">
                         <ul class="letters">
                             <%
+                                char c = '*';
+                                if (sesession.getAttribute("search_letter") != null) {
+                                    String s = (String) sesession.getAttribute("search_letter");
+                                    c = s.charAt(0);
+                                }
                                 for (char i = 'А'; i <= 'Я'; i++) {
                             %>
-                                    <li><a href="books.jsp?letter=<%=i%>"><%=i%></a></li>
+                                    <li><a href="books.jsp?letter=<%=i%>" <% if (i == c) {%><%="class = 'selected'"%><% } %>><%=i%></a></li>
                             <% } %>
                         </ul>
                     </div>

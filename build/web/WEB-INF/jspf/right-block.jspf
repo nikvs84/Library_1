@@ -6,7 +6,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page pageEncoding="UTF-8" %>
-<%--<jsp:useBean id="bookList" class="beans.BookList" scope="page" />--%>
+<jsp:useBean id="bookList" class="beans.BookList" scope="page" />
 <%
 //    request.setCharacterEncoding("UTF-8");
   
@@ -40,15 +40,17 @@
                                 for (Book book : currentBookList) { %>
                                 
                                     <div class="book-preview">
-                                        <b><%= book.getName()%></b><br />
-                                        <img alt="book-logo" title="<%=book.getName()%>" src="<%=request.getContextPath()%>/ShowImage?index=<%=index%>" />
+                                        <a href="content.jsp?index=<%=book.getId()%>"><h3><%= book.getName()%></h3></a><br />
+                                        <a href="content.jsp?index=<%=book.getId()%>">
+                                            <img alt="book-logo" title="<%=book.getName()%>" src="<%=request.getContextPath()%>/ShowImage?index=<%=index%>" />
+                                        </a>
                                         <br />
                                         <b>ISBN</b> &nbsp; <%= book.getIsbn()%><br />
                                         <b>Издательство</b> &nbsp; <%= book.getPublisher()%><br />
                                         <b>Количество страниц</b> &nbsp; <%= book.getPageCount()%><br />
                                         <b>Год издания</b> &nbsp; <%= book.getFormattedDate()%><br />
                                         <b>Автор</b> &nbsp; <%= book.getAuthor()%><br />
-                                        <a href="#">Читать</a>
+                                        <a href="content.jsp?index=<%=book.getId()%>">Читать</a>
                                     </div>
                                 
                             <% index++; } %>

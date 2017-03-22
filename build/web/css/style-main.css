@@ -11,23 +11,43 @@ and open the template in the editor.
 body {
     background-color: #999;
 }
+
+.header-logo img {
+    text-align: center;
+    max-height: 300px;
+}
+
 div.content {
     background-color: #fff;
     margin: 0 auto;
+    padding: 0 10px;
     width: 60%;
+/*    overflow: auto;*/
     /*border: 1px solid #00f;*/
+}
+
+a.selected {
+    background-color: #eef;
+    border-radius: 7px;
+    font-weight: bold;
+    padding: 2px 5px 5px 5px;
 }
 
 div.header {
     
 }
 
+div.exit {
+    float: right;
+}
+
 div.search-letters {
-    margin: 0 auto;
+    margin: 10px auto;
 }
 
 ul.letters {
     margin: 0 auto;
+    text-align: center;
 }
 
 ul.letters li {

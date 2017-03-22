@@ -5,22 +5,30 @@
  */
 package beans;
 
+import db.Database;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author IT10
  */
 public class Book extends Item {
-    int pageCount;
-    String isbn;
-    String genre;
-    String author;
-    Date publishYear;
-    String publisher;
-    byte[] image;
+    private byte[] content;
+    private int pageCount;
+    private String isbn;
+    private String genre;
+    private String author;
+    private Date publishYear;
+    private String publisher;
+    private byte[] image;
     
     public Book() {
         super();
@@ -41,8 +49,14 @@ public class Book extends Item {
         this.publishYear = publishYear;
         this.publisher = publisher;
     }
-    
-    
+
+    public byte[] getContent() {
+        return content;
+    }
+
+    public void setContent(byte[] content) {
+        this.content = content;
+    }
 
     public int getPageCount() {
         return pageCount;
@@ -103,6 +117,21 @@ public class Book extends Item {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+    
+    public void fillPdfContent() {
+        String query = "SELECT `content` FROM `book` WHERE `id` = " + this.id + " LIMIT 0,1;";
+        Connection conn = Database.getConnection();
+        try (
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+                ) {
+            if (rs.next())
+                this.content = rs.getBytes("content");
+        } catch (SQLException ex) {
+            this.content = new byte[0];
+            Logger.getLogger(Book.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
