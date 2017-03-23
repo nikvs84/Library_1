@@ -23,8 +23,10 @@
                 String searchOption = request.getParameter("search_option");
                 SearchType type = SearchType.valueOf(searchOption.toUpperCase());
                 currentBookList = bookList.getBooksBySearch(searchString, type);
-            }
-            session.setAttribute("currentBookList", currentBookList);
+            } else if (session.getAttribute("currentBookList") != null)
+                currentBookList = (ArrayList<Book>) session.getAttribute("currentBookList");
+            if (session.getAttribute("currentBookList") != null)
+                session.setAttribute("currentBookList", currentBookList);
         } catch (Exception e) {
             e.printStackTrace();
         }

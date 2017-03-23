@@ -19,10 +19,10 @@
                 <%  
                     
                     HttpSession sesession = request.getSession(false);
-                    if (sesession.getAttribute("userName") == null) {
-                       String userName = request.getParameter("username");
-                       sesession.setAttribute("userName", userName);
-                    }
+//                    if (sesession.getAttribute("userName") == null) {
+//                       String userName = request.getParameter("username");
+//                       sesession.setAttribute("userName", userName);
+//                    }
                     
                     if (request.getParameter("letter") != null) {
                         sesession.setAttribute("search_letter", request.getParameter("letter"));
@@ -43,7 +43,7 @@
                         sOption = "title";
                         
                 %>
-                <div class="exit"><a href="<%=request.getContextPath()%>"><h3>Выход</h3></a></div>
+                <div class="exit"><a href="<%=request.getContextPath()%>/LogOut"><h3>Выход</h3></a></div>
                 <p><%="Привет, " + session.getAttribute("userName")%></p>
             </div>
             <div class="search">

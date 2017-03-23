@@ -20,7 +20,7 @@
                 <div>Рыба</div>
                 <hr/>
                 <div class="form-auth">
-                    <form name="username" action="pages/main.jsp" method="POST">
+                    <form name="username" action="LogIn" method="POST">
                         <input type="text" name="username" value="" />
                         <br/>
                         <br/>

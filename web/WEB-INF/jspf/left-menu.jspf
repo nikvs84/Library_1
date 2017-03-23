@@ -22,7 +22,7 @@
     %>
 
                 <div class="left">
-                    <h3>Список книг</h3>
+                    <h3>Список жанров</h3>
                          <jsp:useBean id="genreList" class="beans.GenreList" scope="application" />
                          <c:forEach var="genre" varStatus="index" items="${genreList.genreList}">
                              <li><a href="books.jsp?genre_id=${genre.id}" <c:if test="${genre.id == sessionScope.selectedGenreId}">class="selected"</c:if>>${genre.name}</a></li>                                
